@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".MainActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,7 +17,6 @@
         android:orientation="vertical"
         android:gravity="center"
         android:padding="28dp">
-
         <ImageView
             android:layout_width="383dp"
             android:layout_height="161dp"
@@ -62,7 +61,7 @@
                 android:inputType="textEmailAddress"
                 android:hint="Please enter your EmailAddress"
                 android:alpha="0.4"
-                android:drawableEnd="@drawable/baseline_check_24"/>
+                android:drawableEnd="@drawable/icon_check"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -120,17 +119,17 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="12dp"
-                    android:background="@drawable/facebook"/>
+                    android:background="@drawable/icon_facebook"/>
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="12dp"
-                    android:background="@drawable/google"/>
+                    android:background="@drawable/icon_google"/>
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="12dp"
-                    android:background="@drawable/github"/>
+                    android:background="@drawable/icon_github"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
