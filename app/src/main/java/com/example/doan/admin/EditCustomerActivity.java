@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import com.example.doan.R;
 import com.example.doan.admin.model.CustomerModel;
 
+import java.security.Principal;
 import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
 public class EditCustomerActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     int customerId;
+
 
 
     @Override
@@ -35,6 +37,7 @@ public class EditCustomerActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
 
+        LinearLayout layout = findViewById(R.id.edit_layout);
 
         CustomerModel customer = databaseHelper.getCustomer(customerId);
         try {
@@ -50,8 +53,6 @@ public class EditCustomerActivity extends AppCompatActivity {
 
             ArrayList<String> fields = databaseHelper.getCustomerColumns();
 
-
-            LinearLayout layout = findViewById(R.id.edit_layout);
 
 
             for (String field : fields) {
@@ -98,36 +99,39 @@ public class EditCustomerActivity extends AppCompatActivity {
             linearLayout.addView(btnSave);
             layout.addView(linearLayout);
 
-            List<String> editTextValues = new ArrayList<>();
 
-            for (int i = 0; i < layout.getChildCount(); i++) {
-                View childView = layout.getChildAt(i);
-                if (childView instanceof EditText) {
-                    EditText editText = (EditText) childView;
-                    String editTextValue = editText.getText().toString();
-                    editTextValues.add(editTextValue);
-                }
-            }
-
-            btnSave.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    for (int i = 0; i < fields.size(); i++) {
-//                        if (editTextValues.get(i) != getValueForField(customer,fields.get(i).toString()))
-//                        {
-//                        }
-//                    }
-                    boolean success = databaseHelper.updateCustomer(customerId,editTextValues.get(1),editTextValues.get(2));
-                    if (success)
-                        Toast.makeText(EditCustomerActivity.this, "Success!", Toast.LENGTH_SHORT).show();
-                    else
-                        Toast.makeText(EditCustomerActivity.this, "Fail!", Toast.LENGTH_SHORT).show();
-                }
-            });
+//            btnSave.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+////                    for (int i = 0; i < fields.size(); i++) {
+////                        if (editTextValues.get(i) != getValueForField(customer,fields.get(i).toString()))
+////                        {
+////                        }
+////                    }
+//                    List<String> editTextValues = getEditTextValues();
+//                    boolean success = databaseHelper.updateCustomer(customerId,editTextValues.get(1),editTextValues.get(2));
+//                    if (success)
+//                        Toast.makeText(EditCustomerActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+//                    else
+//                        Toast.makeText(EditCustomerActivity.this, editTextValues.get(1), Toast.LENGTH_SHORT).show();
+//                }
+//            });
         }
 
     }
 
+//    private List<String> getEditTextValues(){
+//        List<String> EditTextValues = new ArrayList<>();
+//        for (int i = 0; i < layout.getChildCount(); i++) {
+//            View childView = layout.getChildAt(i);
+//            if (childView instanceof EditText) {
+//                EditText editText = (EditText) childView;
+//                String editTextValue = editText.getText().toString();
+//                EditTextValues.add(editTextValue);
+//            }
+//        }
+//        return EditTextValues;
+//    }
     private String getValueForField(CustomerModel customer, String field) {
         // This method should retrieve the value for the specified field from the customer object
         // For simplicity, let's assume field names match with getter methods of CustomerModel

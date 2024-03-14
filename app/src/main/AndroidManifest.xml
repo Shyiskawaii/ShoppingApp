@@ -22,14 +22,20 @@
             android:name=".admin.CustomerRecycler"
             android:exported="true" />
         <activity
-            android:name=".AdminActivity"
-            android:exported="false" />
+            android:name=".admin.AdminActivity"
+            android:exported="true" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
+        <activity
+            android:name=".list.listphone"
+            android:exported="true" />
+        <activity
+            android:name=".list.phone"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

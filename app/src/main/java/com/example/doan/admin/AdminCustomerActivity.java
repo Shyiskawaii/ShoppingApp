@@ -19,7 +19,7 @@ public class AdminCustomerActivity extends AppCompatActivity {
 
     Button btn_add,btn_refresh;
     EditText et_name,et_password;
-    RecyclerView rcv_info;
+    RecyclerView rcv_ino;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

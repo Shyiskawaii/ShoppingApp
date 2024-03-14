@@ -1,8 +1,10 @@
-package com.example.doan;
+package com.example.doan.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.doan.R;
 
 public class AdminActivity extends AppCompatActivity {
 
