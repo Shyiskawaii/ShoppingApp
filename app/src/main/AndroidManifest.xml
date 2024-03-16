@@ -13,11 +13,29 @@
         android:theme="@style/Theme.Doan"
         tools:targetApi="31">
         <activity
+            android:name=".admin.AdminCustomerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".admin.EditCustomerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".admin.CustomerRecycler"
+            android:exported="true" />
+        <activity
+            android:name=".admin.AdminActivity"
+            android:exported="true" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
+        <activity
+            android:name=".list.listphone"
+            android:exported="true" />
+        <activity
+            android:name=".list.phone"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
