@@ -13,17 +13,14 @@
         android:theme="@style/Theme.Doan"
         tools:targetApi="31">
         <activity
-            android:name=".admin.AdminCustomerActivity"
+            android:name=".admin.AdminUserActivity"
             android:exported="true" />
         <activity
-            android:name=".admin.EditCustomerActivity"
-            android:exported="true" />
-        <activity
-            android:name=".admin.CustomerRecycler"
+            android:name=".admin.recycler.UserRecycler"
             android:exported="true" />
         <activity
             android:name=".admin.AdminActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
@@ -32,10 +29,10 @@
             android:exported="false" />
         <activity
             android:name=".list.listphone"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".list.phone"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

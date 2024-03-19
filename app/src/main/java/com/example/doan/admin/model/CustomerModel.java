@@ -3,23 +3,22 @@ package com.example.doan.admin.model;
 import androidx.annotation.NonNull;
 
 public class CustomerModel {
-    private int id;
-    private String CusName;
-    private String Password;
+    private int CustomerID;
+    private String CustomerName;
+    private String Number;
+    private String Avatar;
+    private String BirthDate;
+    private String Address;
+    private int UserID; // Foreign key reference to User
 
-    //constructors
-
-
-    public CustomerModel(int id, String cusName, String password) {
-        this.id = id;
-        CusName = cusName;
-        Password = password;
-    }
-    public CustomerModel(String name, String password) {
-        // Set a default value for ID when it's not provided
-        this.id = -1;
-        CusName = name;
-        Password = password;
+    public CustomerModel(int customerID, String customerName, String number, String avatar, String birthDate, String address, int userID) {
+        CustomerID = customerID;
+        CustomerName = customerName;
+        Number = number;
+        Avatar = avatar;
+        BirthDate = birthDate;
+        Address = address;
+        UserID = userID;
     }
 
     public CustomerModel(){
@@ -31,28 +30,62 @@ public class CustomerModel {
     public String toString() {
         return super.toString();
     }
-
-    public int getId() {
-        return id;
+    public int getCustomerID() {
+        return CustomerID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCustomerID(int customerID) {
+        CustomerID = customerID;
     }
 
-    public String getCusName() {
-        return CusName;
+    public String getCustomerName() {
+        return CustomerName;
     }
 
-    public void setCusName(String cusName) {
-        CusName = cusName;
+    public void setCustomerName(String customerName) {
+        CustomerName = customerName;
     }
 
-    public String getPassword() {
-        return Password;
+    public String getNumber() {
+        return Number;
     }
 
-    public void setPassword(String password) {
-        Password = password;
+    public void setNumber(String number) {
+        Number = number;
     }
+
+    public String getAvatar() {
+        return Avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        Avatar = avatar;
+    }
+
+    public String getBirthDate() {
+        return BirthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        BirthDate = birthDate;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public int getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(int userID) {
+        UserID = userID;
+    }
+
+
+
 }
