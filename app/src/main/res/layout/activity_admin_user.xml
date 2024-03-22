@@ -39,7 +39,8 @@
         app:cardBackgroundColor="@android:color/holo_blue_dark"
         app:cardCornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/imgNewCard">
 
         <ImageView
             android:id="@+id/imgNew"

@@ -22,12 +22,14 @@ public class AdminUserActivity extends AppCompatActivity {
     EditText etsearch;
     ImageView imgSearch,imgAdd;
     RecyclerView recyclerView;
-    DatabaseHelper databaseHelper = new DatabaseHelper(this);
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_user);
+
+        databaseHelper = new DatabaseHelper(this);
 
         etsearch = findViewById(R.id.etSearch);
         imgSearch = findViewById(R.id.imgSearch);

@@ -2,34 +2,52 @@ package com.example.doan;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.doan.admin.DatabaseHelper;
 
 public class LoginActivity extends AppCompatActivity {
-Button btnLogin;
+    Context context;
+    DatabaseHelper databaseHelper;
+    Button btnLogin;
+    EditText EdtUserName,EdtPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        addControls();
-        addEvent();
-    }
 
-    private void addEvent() {
+        databaseHelper = new DatabaseHelper(this);
+
+        EdtUserName = findViewById(R.id.edtUserName);
+        EdtPassword = findViewById(R.id.edtPassword);
+
+        btnLogin = findViewById(R.id.btnLogin);
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
+                boolean success = databaseHelper.Login(EdtUserName.getText().toString(),EdtPassword.getText().toString());
+
+                if(success){
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    context.startActivity(intent);
+                }
+                else {
+                    Toast.makeText(LoginActivity.this, "something bug", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-    }
 
-    private void addControls() {
-        btnLogin=findViewById(R.id.btnLogin);
-    }
 
+    }
 }
+
+
+

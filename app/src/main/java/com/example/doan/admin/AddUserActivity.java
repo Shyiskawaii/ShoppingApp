@@ -42,7 +42,6 @@ public class AddUserActivity extends AppCompatActivity {
             textView.setText(field);
             linearlayout.addView(textView);
 
-
             EditText editText = new EditText(this);
             editText.setId(View.generateViewId()); // Generate unique ID for EditText
             linearlayout.addView(editText);

@@ -1,6 +1,7 @@
 package com.example.doan.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ public class AdminCustomerActivity extends AppCompatActivity {
 
     EditText etsearch;
     ImageView imgSearch,imgAdd;
+    CardView imgNewCard;
     RecyclerView recyclerView;
     DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
@@ -35,6 +37,7 @@ public class AdminCustomerActivity extends AppCompatActivity {
         imgSearch = findViewById(R.id.imgSearch);
 
         imgAdd = findViewById(R.id.imgNew);
+        imgNewCard = findViewById(R.id.imgNewCard);
 
         recyclerView = findViewById(R.id.rcv_info_list);
 
@@ -48,13 +51,8 @@ public class AdminCustomerActivity extends AppCompatActivity {
             }
         });
 
-        imgAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AdminCustomerActivity.this, AddUserActivity.class);
-                AdminCustomerActivity.this.startActivity(intent);
-            }
-        });
+        imgAdd.setVisibility(View.GONE);
+        imgNewCard.setVisibility(View.GONE);
     }
 
     private void show(String search,int filter){

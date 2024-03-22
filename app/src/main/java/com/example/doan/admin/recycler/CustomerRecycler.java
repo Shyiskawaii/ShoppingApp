@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doan.R;
+import com.example.doan.admin.EditCustomerActivity;
 import com.example.doan.admin.EditUserActivity;
 import com.example.doan.admin.model.CustomerModel;
 
@@ -51,7 +52,7 @@ public class CustomerRecycler extends RecyclerView.Adapter<CustomerRecycler.MyVi
             public void onClick(View v) {
                 int clickedPosition = holder.getAdapterPosition();
                 if (clickedPosition != RecyclerView.NO_POSITION) {
-                    Intent intent = new Intent(context, EditUserActivity.class);
+                    Intent intent = new Intent(context, EditCustomerActivity.class);
                     intent.putExtra("customerID", customerList.get(clickedPosition).getCustomerID());
                     context.startActivity(intent);
                 }

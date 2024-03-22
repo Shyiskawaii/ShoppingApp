@@ -32,7 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="28dp">
+            android:padding="28dp"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,17 +52,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email Address"
+                android:text="User Name"
                 android:alpha="0.7"
                 android:textStyle="bold"/>
             <EditText
-                android:id="@+id/edtEA"
+                android:id="@+id/edtUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:hint="Please enter your EmailAddress"
-                android:alpha="0.4"
-                android:drawableEnd="@drawable/icon_check"/>
+                android:alpha="0.4" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,63 +74,29 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:hint="Please enter your Password"
-                android:alpha="0.4"
-                android:drawableEnd="@drawable/icon_eye"/>
+                android:alpha="0.4"/>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Remember Me"
-                    android:layout_centerVertical="true"
-                    android:alpha="0.7"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="I forgot my password"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
+                android:layout_height="wrap_content"/>
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="10dp"/>
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Login"
-                app:cornerRadius="32dp"/>
+                app:cornerRadius="32dp"
+                android:layout_marginBottom="100dp"/>
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Or Login with"
-                android:layout_gravity="center"
-                android:alpha="0.7"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="12dp"
-                    android:background="@drawable/icon_facebook"/>
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="12dp"
-                    android:background="@drawable/icon_google"/>
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="12dp"
-                    android:background="@drawable/icon_github"/>
-            </LinearLayout>
+                android:gravity="center"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

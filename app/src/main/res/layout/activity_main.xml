@@ -9,6 +9,7 @@
     tools:context=".MainActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="-81dp"
@@ -22,43 +23,36 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="78dp"
-                android:background="@color/my_primary"
-                 >
+                android:background="@color/my_primary">
 
                 <ImageView
                     android:id="@+id/IVLogo"
-                    android:layout_width="90dp"
-                    android:layout_height="78dp"
-                    android:src="@drawable/logo">
-                </ImageView>
-
-                <TextView
-                    android:layout_width="101dp"
-                    android:layout_height="53dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="27dp"
-                    android:layout_marginEnd="163dp"
-                    android:layout_marginBottom="-2dp"
-                    android:layout_toStartOf="@+id/IBSearch"
-                    android:text="Trang chủ"
-                    android:textSize="20sp" />
-
-                <ImageButton
-                    android:id="@+id/IBSearch"
-                    android:layout_width="51dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginEnd="4dp"
-                    android:background="@color/my_primary"
-                    android:src="@drawable/icon_search" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/logo"></ImageView>
 
             </RelativeLayout>
 
 
         </LinearLayout>
     </androidx.drawerlayout.widget.DrawerLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/drawerLayout"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:layout_constraintStart_toStartOf="@+id/drawerLayout"
+        app:layout_constraintTop_toTopOf="@+id/drawerLayout"
+        app:menu="@menu/drawer_menu" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
