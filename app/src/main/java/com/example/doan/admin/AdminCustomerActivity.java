@@ -11,12 +11,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.doan.R;
+import com.example.doan.admin.model.CustomerModel;
 import com.example.doan.admin.model.UserModel;
+import com.example.doan.admin.recycler.CustomerRecycler;
 import com.example.doan.admin.recycler.UserRecycler;
 
 import java.util.List;
 
-public class AdminUserActivity extends AppCompatActivity {
+public class AdminCustomerActivity extends AppCompatActivity {
 
 
     EditText etsearch;
@@ -49,19 +51,19 @@ public class AdminUserActivity extends AppCompatActivity {
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminUserActivity.this, AddUserActivity.class);
-                AdminUserActivity.this.startActivity(intent);
+                Intent intent = new Intent(AdminCustomerActivity.this, AddUserActivity.class);
+                AdminCustomerActivity.this.startActivity(intent);
             }
         });
     }
 
     private void show(String search,int filter){
-        List<UserModel> userList = databaseHelper.getUser(search,filter,-1);
+        List<CustomerModel> customerList = databaseHelper.getCustomer(search,filter,-1);
 
-        if(userList != null){
-            UserRecycler adapter = new UserRecycler(AdminUserActivity.this,userList);
+        if(customerList != null){
+            CustomerRecycler adapter = new CustomerRecycler(AdminCustomerActivity.this,customerList);
             recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(AdminUserActivity.this));
+            recyclerView.setLayoutManager(new LinearLayoutManager(AdminCustomerActivity.this));
         }
         else {
             recyclerView.setAdapter(null);

@@ -33,13 +33,13 @@
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_admin_edit);
 //
-//        customerId = getIntent().getIntExtra("customerId", -1);
+//        customerId = getIntent().getIntExtra("customerID", -1);
 //
 //        databaseHelper = new DatabaseHelper(this);
 //
 //        linearlayout = findViewById(R.id.edit_layout);
 //
-//        CustomerModel customer = databaseHelper.getCustomer(customerId);
+//        CustomerModel customer = databaseHelper.getCustomer(null,-1,customerId);
 //        try {
 //            String text = String.valueOf(customer.getCusName());
 //            Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
