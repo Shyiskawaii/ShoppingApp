@@ -33,6 +33,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String CUSTOMER_TABLE = "CUSTOMER_TABLE", COLUMN_CUSTOMER_ID = "CustomerID", COLUMN_CUSTOMER_NAME = "CustomerName", COLUMN_NUMBER = "Number", COLUMN_AVATAR = "Avatar", COLUMN_BIRTH_DATE = "BirthDate", COLUMN_ADDRESS = "Address", COLUMN_CUSTOMER_USER_ID = "UserID";
     public static final String FOREIGN_KEY_USER_ID = " FOREIGN KEY(" + COLUMN_CUSTOMER_USER_ID + ") REFERENCES " + USER_TABLE + "(" + COLUMN_CUSTOMER_USER_ID + ")";
 
+    //Brand
+    public static final String BRAND_TABLE = "BrandModel", COLUMN_BRAND_ID = "BrandID", COLUMN_BRAND_NAME = "BrandName", COLUMN_BRAND_DESCRIPTION = "BrandDescription";
+    //Category
+    public static final String CATEGORY_TABLE = "CategoryModel", COLUMN_CATEGORY_ID = "CategoryID", COLUMN_CATEGORY_NAME = "CategoryName", COLUMN_CATEGORY_DESCRIPTION = "CategoryDescription";
+    //Specification
+    public static final String SPECIFICATION_TABLE = "SpecificationModel", COLUMN_SPECIFICATION_ID = "SpecificationID", COLUMN_OS = "OS", COLUMN_CHIP = "Chip", COLUMN_RAM = "RAM", COLUMN_ROM = "ROM", COLUMN_BATTERY = "Battery", COLUMN_SCREEN = "Screen", COLUMN_SIZE = "Size";
+
+    //Phone
+    public static final String PHONE_TABLE = "PHONE_TABLE", COLUMN_PHONE_ID = "PhoneID", COLUMN_PHONE_NAME = "PhoneName", COLUMN_PHONE_DESCRIPTION = "PhoneDescription", COLUMN_VIEWS = "Views", COLUMN_BOUGHT = "Bought", COLUMN_PHONE_CATEGORY_ID = "CategoryID", COLUMN_PHONE_BRAND_ID = "BrandID",COLUMN_PHONE_SPECIFICATION_ID = "SpecificationID";
+    public static final String FOREIGN_KEY_BRAND_ID = " FOREIGN KEY(" + COLUMN_PHONE_BRAND_ID + ") REFERENCES " + BRAND_TABLE + "(" + COLUMN_PHONE_BRAND_ID + ")";
+    public static final String FOREIGN_KEY_CATEGORY_ID = " FOREIGN KEY(" + COLUMN_PHONE_CATEGORY_ID + ") REFERENCES " + CATEGORY_TABLE + "(" + COLUMN_PHONE_CATEGORY_ID + ")";
+    public static final String FOREIGN_KEY_SPECIFICATION_ID = " FOREIGN KEY(" + COLUMN_PHONE_SPECIFICATION_ID + ") REFERENCES " + SPECIFICATION_TABLE + "(" + COLUMN_PHONE_SPECIFICATION_ID + ")";
+
+
+
     private static final String PREFERENCES_NAME = "user_session";
     private static final String PREFERENCES_ROLE = "user_role";
 
@@ -66,6 +81,44 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 COLUMN_CUSTOMER_USER_ID + " INTEGER, " +
                 "FOREIGN KEY(" + COLUMN_CUSTOMER_USER_ID + ") REFERENCES " + USER_TABLE + "(" + COLUMN_USER_ID + "))";
         db.execSQL(createCustomerTableStatement);
+
+        String createBrandTableStatement = "CREATE TABLE " + BRAND_TABLE + " (" +
+                COLUMN_BRAND_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_BRAND_NAME + " TEXT, " +
+                COLUMN_BRAND_DESCRIPTION + " TEXT)";
+        db.execSQL(createBrandTableStatement);
+
+        String createCategoryTableStatement = "CREATE TABLE " + CATEGORY_TABLE + " (" +
+                COLUMN_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_CATEGORY_NAME + " TEXT, " +
+                COLUMN_CATEGORY_DESCRIPTION + " TEXT)";
+        db.execSQL(createCategoryTableStatement);
+
+        String createSpecificationTableStatement = "CREATE TABLE " + SPECIFICATION_TABLE + " (" +
+                COLUMN_SPECIFICATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_OS + " TEXT, " +
+                COLUMN_CHIP + " TEXT, " +
+                COLUMN_RAM + " TEXT, " +
+                COLUMN_ROM + " TEXT, " +
+                COLUMN_BATTERY + " TEXT, " +
+                COLUMN_SCREEN + " TEXT, " +
+                COLUMN_SIZE + " TEXT)";
+        db.execSQL(createSpecificationTableStatement);
+
+        String createPhoneTableStatement = "CREATE TABLE " + PHONE_TABLE + " (" +
+                COLUMN_PHONE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_PHONE_NAME + " TEXT, " +
+                COLUMN_PHONE_DESCRIPTION + " TEXT, " +
+                COLUMN_VIEWS + " INTEGER, " +
+                COLUMN_BOUGHT + " INTEGER, " +
+                COLUMN_PHONE_CATEGORY_ID + " INTEGER, " +
+                COLUMN_PHONE_BRAND_ID + " INTEGER, " +
+                COLUMN_PHONE_SPECIFICATION_ID + " INTEGER, " +
+                FOREIGN_KEY_BRAND_ID + ", " +
+                FOREIGN_KEY_CATEGORY_ID + ", " +
+                FOREIGN_KEY_SPECIFICATION_ID + ")";
+        db.execSQL(createPhoneTableStatement);
+
 
         for(int index = 0; index < 5; index++)
         {

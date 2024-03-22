@@ -33,17 +33,17 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean success = databaseHelper.Login(EdtUserName.getText().toString(),EdtPassword.getText().toString());
+                boolean success = databaseHelper.Login(EdtUserName.getText().toString(), EdtPassword.getText().toString());
 
-                if(success){
+                if (success) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    context.startActivity(intent);
-                }
-                else {
+                    startActivity(intent);
+                } else {
                     Toast.makeText(LoginActivity.this, "something bug", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
 
 
     }
