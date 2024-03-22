@@ -10,14 +10,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Doan"
         tools:targetApi="31">
         <activity
             android:name=".admin.AdminUserActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".admin.recycler.UserRecycler"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".admin.AdminActivity"
             android:exported="false" />

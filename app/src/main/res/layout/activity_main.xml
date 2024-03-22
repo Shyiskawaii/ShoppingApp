@@ -7,58 +7,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
     <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/dlHome"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-81dp"
-        tools:layout_editor_absoluteY="196dp">
-
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <RelativeLayout
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tbHome"
                 android:layout_width="match_parent"
-                android:layout_height="78dp"
+                android:layout_height="?actionBarSize"
                 android:background="@color/my_primary"
-                 >
-
-                <ImageView
-                    android:id="@+id/IVLogo"
-                    android:layout_width="90dp"
-                    android:layout_height="78dp"
-                    android:src="@drawable/logo">
-                </ImageView>
-
+                app:title="Trang chủ">
+            </androidx.appcompat.widget.Toolbar>
+            <ViewFlipper
+                android:id="@+id/vfHome"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/xám">
                 <TextView
-                    android:layout_width="101dp"
-                    android:layout_height="53dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="27dp"
-                    android:layout_marginEnd="163dp"
-                    android:layout_marginBottom="-2dp"
-                    android:layout_toStartOf="@+id/IBSearch"
-                    android:text="Trang chủ"
-                    android:textSize="20sp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sản phầm mới nhất"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
+                <androidx.recyclerview.widget.RecyclerView
 
-                <ImageButton
-                    android:id="@+id/IBSearch"
-                    android:layout_width="51dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginEnd="4dp"
-                    android:background="@color/my_primary"
-                    android:src="@drawable/icon_search" />
-
-            </RelativeLayout>
-
-
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/recHome">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
         </LinearLayout>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navHome"
+            android:layout_gravity="start"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ListView
+                android:id="@+id/lvHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"   />
+        </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
