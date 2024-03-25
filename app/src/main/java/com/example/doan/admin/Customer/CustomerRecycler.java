@@ -1,4 +1,4 @@
-package com.example.doan.admin.recycler;
+package com.example.doan.admin.Customer;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,46 +14,44 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doan.R;
-import com.example.doan.admin.EditUserActivity;
 import com.example.doan.admin.model.CustomerModel;
-import com.example.doan.admin.model.UserModel;
 
 import java.util.List;
 
-public class UserRecycler extends RecyclerView.Adapter<UserRecycler.MyViewHolder> {
+public class CustomerRecycler extends RecyclerView.Adapter<CustomerRecycler.MyViewHolder> {
 
     Context context;
-    List<UserModel> userList;
-    public UserRecycler(Context context, List<UserModel> userList){
+    List<CustomerModel> customerList;
+    public CustomerRecycler(Context context, List<CustomerModel> customerList){
         this.context = context;
-        this.userList = userList;
+        this.customerList = customerList;
     }
-    public UserRecycler(){
+    public CustomerRecycler(){
     }
 
     @NonNull
     @Override
-    public UserRecycler.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CustomerRecycler.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.admin_recycler_view_row,parent,false);
-        return new UserRecycler.MyViewHolder(view);
+        return new CustomerRecycler.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserRecycler.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CustomerRecycler.MyViewHolder holder, int position) {
 
-        holder.txtID.setText(String.valueOf(userList.get(position).getUserID()));
-        holder.txtName.setText(userList.get(position).getUserName());
-        holder.txtExtra.setText(userList.get(position).getRole());
-        holder.txtExtra2.setText(userList.get(position).getStatus());
+        holder.txtID.setText(String.valueOf(customerList.get(position).getCustomerID()));
+        holder.txtName.setText(customerList.get(position).getCustomerName());
+        holder.txtExtra.setText(customerList.get(position).getAddress());
+        holder.txtExtra2.setText(customerList.get(position).getNumber());
 
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int clickedPosition = holder.getAdapterPosition();
                 if (clickedPosition != RecyclerView.NO_POSITION) {
-                    Intent intent = new Intent(context, EditUserActivity.class);
-                    intent.putExtra("userID", userList.get(clickedPosition).getUserID());
+                    Intent intent = new Intent(context, EditCustomerActivity.class);
+                    intent.putExtra("customerID", customerList.get(clickedPosition).getCustomerID());
                     context.startActivity(intent);
                 }
             }
@@ -63,7 +61,7 @@ public class UserRecycler extends RecyclerView.Adapter<UserRecycler.MyViewHolder
 
     @Override
     public int getItemCount() {
-        return userList.size();
+        return customerList.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

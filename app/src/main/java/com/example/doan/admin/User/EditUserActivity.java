@@ -1,4 +1,4 @@
-package com.example.doan.admin;
+package com.example.doan.admin.User;
 
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -11,15 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.example.doan.R;
-import com.example.doan.admin.model.CustomerModel;
+import com.example.doan.admin.DatabaseHelper;
 import com.example.doan.admin.model.UserModel;
 
-import java.security.Principal;
-import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.List;
 

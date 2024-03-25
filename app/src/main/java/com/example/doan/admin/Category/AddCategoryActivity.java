@@ -1,4 +1,4 @@
-package com.example.doan.admin;
+package com.example.doan.admin.Category;
 
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -15,6 +15,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.example.doan.R;
+import com.example.doan.admin.DatabaseHelper;
+import com.example.doan.admin.model.CategoryModel;
 import com.example.doan.admin.model.CustomerModel;
 import com.example.doan.admin.model.UserModel;
 
@@ -23,7 +25,7 @@ import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddUserActivity extends AppCompatActivity {
+public class AddCategoryActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper = new DatabaseHelper(this);
     LinearLayout linearlayout;
 
@@ -34,7 +36,7 @@ public class AddUserActivity extends AppCompatActivity {
 
         linearlayout = findViewById(R.id.edit_layout);
 
-        ArrayList<String> fields = databaseHelper.getNewUserColumns();
+        ArrayList<String> fields = databaseHelper.getNewCategoryColumns();
 
         for (String field : fields) {
 
@@ -83,11 +85,12 @@ public class AddUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 List<String> editTextValues = getEditTextValues();
-                boolean success = databaseHelper.addUser(editTextValues.get(0),editTextValues.get(1),editTextValues.get(2));
-//                if (success)
-//                    Toast.makeText(AddUserActivity.this, "Success!", Toast.LENGTH_SHORT).show();
-//                else
-//                    Toast.makeText(AddUserActivity.this, editTextValues.get(1), Toast.LENGTH_SHORT).show();
+                CategoryModel category = new CategoryModel(-1,editTextValues.get(0),editTextValues.get(1));
+                boolean success = databaseHelper.addCategory(category);
+                if (success)
+                    Toast.makeText(AddCategoryActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(AddCategoryActivity.this, category.getCategoryID(), Toast.LENGTH_SHORT).show();
             }
         });
 

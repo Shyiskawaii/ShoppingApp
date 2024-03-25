@@ -9,9 +9,8 @@ public class SpecificationModel {
     private String Battery;
     private String Screen;
     private String Size;
-    private int PhoneID;
 
-    public SpecificationModel(int specificationID, String os, String chip, String ram, String rom, String battery, String screen, String size, int phoneID) {
+    public SpecificationModel(int specificationID, String os, String chip, String ram, String rom, String battery, String screen, String size) {
         SpecificationID = specificationID;
         OS = os;
         Chip = chip;
@@ -20,7 +19,7 @@ public class SpecificationModel {
         Battery = battery;
         Screen = screen;
         Size = size;
-        PhoneID = phoneID;
+
     }
 
     public int getSpecificationID() {
@@ -87,11 +86,5 @@ public class SpecificationModel {
         Size = size;
     }
 
-    public int getPhoneID() {
-        return PhoneID;
-    }
 
-    public void setPhoneID(int phoneID) {
-        PhoneID = phoneID;
-    }
 }

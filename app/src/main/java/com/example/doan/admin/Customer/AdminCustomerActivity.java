@@ -1,21 +1,18 @@
-package com.example.doan.admin;
+package com.example.doan.admin.Customer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.doan.R;
+import com.example.doan.admin.DatabaseHelper;
 import com.example.doan.admin.model.CustomerModel;
-import com.example.doan.admin.model.UserModel;
-import com.example.doan.admin.recycler.CustomerRecycler;
-import com.example.doan.admin.recycler.UserRecycler;
 
 import java.util.List;
 

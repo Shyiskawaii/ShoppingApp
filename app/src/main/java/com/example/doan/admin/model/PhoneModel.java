@@ -1,19 +1,28 @@
 package com.example.doan.admin.model;
 
+import java.sql.Blob;
+
 public class PhoneModel {
     private int PhoneID;
     private String PhoneName;
     private String PhoneDescription;
-    private String Views;
-    private String Bought;
+    private byte[] PhoneImage;
+
+    private int Price;
+    private int Discount;
+    private int Views;
+    private int Bought;
     private int CategoryID;
     private int BrandID;
     private int SpecificationID;
 
-    public PhoneModel(int phoneID, String phoneName, String phoneDescription, String views, String bought, int categoryID, int brandID, int specificationID) {
+    public PhoneModel(int phoneID, String phoneName, String phoneDescription, byte[] phoneImage, int price, int discount, int views, int bought, int categoryID, int brandID, int specificationID) {
         PhoneID = phoneID;
         PhoneName = phoneName;
         PhoneDescription = phoneDescription;
+        PhoneImage = phoneImage;
+        Price = price;
+        Discount = discount;
         Views = views;
         Bought = bought;
         CategoryID = categoryID;
@@ -45,19 +54,43 @@ public class PhoneModel {
         PhoneDescription = phoneDescription;
     }
 
-    public String getViews() {
+    public byte[] getPhoneImage() {
+        return PhoneImage;
+    }
+
+    public void setPhoneImage(byte[] phoneImage) {
+        PhoneImage = phoneImage;
+    }
+
+    public int getPrice() {
+        return Price;
+    }
+
+    public void setPrice(int price) {
+        Price = price;
+    }
+
+    public int getDiscount() {
+        return Discount;
+    }
+
+    public void setDiscount(int discount) {
+        Discount = discount;
+    }
+
+    public int getViews() {
         return Views;
     }
 
-    public void setViews(String views) {
+    public void setViews(int views) {
         Views = views;
     }
 
-    public String getBought() {
+    public int getBought() {
         return Bought;
     }
 
-    public void setBought(String bought) {
+    public void setBought(int bought) {
         Bought = bought;
     }
 

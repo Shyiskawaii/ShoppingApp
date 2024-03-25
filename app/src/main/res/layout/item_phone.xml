@@ -18,10 +18,19 @@
             android:src="@drawable/iphone"
             ></ImageView>
         <TextView
-            android:id="@+id/namephone"
+            android:id="@+id/namePhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:padding="5dp"></TextView>
+        <TextView
+            android:id="@+id/pricePhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="100k"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:gravity="center"

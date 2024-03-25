@@ -6,18 +6,22 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
-import android.util.Log;
-import android.widget.EditText;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.Size;
 
+import com.example.doan.admin.model.BrandModel;
+import com.example.doan.admin.model.CategoryModel;
 import com.example.doan.admin.model.CustomerModel;
+import com.example.doan.admin.model.PhoneModel;
+import com.example.doan.admin.model.SpecificationModel;
 import com.example.doan.admin.model.UserModel;
-import com.example.doan.admin.recycler.CustomerRecycler;
 
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,14 +38,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String FOREIGN_KEY_USER_ID = " FOREIGN KEY(" + COLUMN_CUSTOMER_USER_ID + ") REFERENCES " + USER_TABLE + "(" + COLUMN_CUSTOMER_USER_ID + ")";
 
     //Brand
-    public static final String BRAND_TABLE = "BrandModel", COLUMN_BRAND_ID = "BrandID", COLUMN_BRAND_NAME = "BrandName", COLUMN_BRAND_DESCRIPTION = "BrandDescription";
+    public static final String BRAND_TABLE = "BRAND_TABLE", COLUMN_BRAND_ID = "BrandID", COLUMN_BRAND_NAME = "BrandName", COLUMN_BRAND_DESCRIPTION = "BrandDescription";
     //Category
-    public static final String CATEGORY_TABLE = "CategoryModel", COLUMN_CATEGORY_ID = "CategoryID", COLUMN_CATEGORY_NAME = "CategoryName", COLUMN_CATEGORY_DESCRIPTION = "CategoryDescription";
+    public static final String CATEGORY_TABLE = "CATEGORY_TABLE", COLUMN_CATEGORY_ID = "CategoryID", COLUMN_CATEGORY_NAME = "CategoryName", COLUMN_CATEGORY_DESCRIPTION = "CategoryDescription";
     //Specification
-    public static final String SPECIFICATION_TABLE = "SpecificationModel", COLUMN_SPECIFICATION_ID = "SpecificationID", COLUMN_OS = "OS", COLUMN_CHIP = "Chip", COLUMN_RAM = "RAM", COLUMN_ROM = "ROM", COLUMN_BATTERY = "Battery", COLUMN_SCREEN = "Screen", COLUMN_SIZE = "Size";
+    public static final String SPECIFICATION_TABLE = "SPECIFICATION_MODEL", COLUMN_SPECIFICATION_ID = "SpecificationID", COLUMN_OS = "OS", COLUMN_CHIP = "Chip", COLUMN_RAM = "RAM", COLUMN_ROM = "ROM", COLUMN_BATTERY = "Battery", COLUMN_SCREEN = "Screen", COLUMN_SIZE = "Size";
 
     //Phone
-    public static final String PHONE_TABLE = "PHONE_TABLE", COLUMN_PHONE_ID = "PhoneID", COLUMN_PHONE_NAME = "PhoneName", COLUMN_PHONE_DESCRIPTION = "PhoneDescription", COLUMN_VIEWS = "Views", COLUMN_BOUGHT = "Bought", COLUMN_PHONE_CATEGORY_ID = "CategoryID", COLUMN_PHONE_BRAND_ID = "BrandID",COLUMN_PHONE_SPECIFICATION_ID = "SpecificationID";
+    public static final String PHONE_TABLE = "PHONE_TABLE", COLUMN_PHONE_ID = "PhoneID", COLUMN_PHONE_NAME = "PhoneName", COLUMN_PHONE_DESCRIPTION = "PhoneDescription", COLUMN_PHONE_IMAGE = "PhoneImage", COLUMN_PRICE = "Price", COLUMN_DISCOUNT = "Discount",COLUMN_VIEWS = "Views", COLUMN_BOUGHT = "Bought", COLUMN_PHONE_CATEGORY_ID = "CategoryID", COLUMN_PHONE_BRAND_ID = "BrandID",COLUMN_PHONE_SPECIFICATION_ID = "SpecificationID";
     public static final String FOREIGN_KEY_BRAND_ID = " FOREIGN KEY(" + COLUMN_PHONE_BRAND_ID + ") REFERENCES " + BRAND_TABLE + "(" + COLUMN_PHONE_BRAND_ID + ")";
     public static final String FOREIGN_KEY_CATEGORY_ID = " FOREIGN KEY(" + COLUMN_PHONE_CATEGORY_ID + ") REFERENCES " + CATEGORY_TABLE + "(" + COLUMN_PHONE_CATEGORY_ID + ")";
     public static final String FOREIGN_KEY_SPECIFICATION_ID = " FOREIGN KEY(" + COLUMN_PHONE_SPECIFICATION_ID + ") REFERENCES " + SPECIFICATION_TABLE + "(" + COLUMN_PHONE_SPECIFICATION_ID + ")";
@@ -57,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public DatabaseHelper(@Nullable Context context){
         super(context, "customer.db", null, 1);
         this.context = context;
-        this.sharedPreferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
+        //this.sharedPreferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -109,6 +113,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 COLUMN_PHONE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_PHONE_NAME + " TEXT, " +
                 COLUMN_PHONE_DESCRIPTION + " TEXT, " +
+                COLUMN_PHONE_IMAGE + " BLOB, " +
+                COLUMN_PRICE + " INTEGER, " +
+                COLUMN_DISCOUNT + " INTEGER, " +
                 COLUMN_VIEWS + " INTEGER, " +
                 COLUMN_BOUGHT + " INTEGER, " +
                 COLUMN_PHONE_CATEGORY_ID + " INTEGER, " +
@@ -124,6 +131,26 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         {
             dumpdata(db);
         }
+
+
+        // Dummy data for BrandModel
+        for (int i = 0; i < 5; i++) {
+            ContentValues brandValues = new ContentValues();
+            brandValues.put(COLUMN_BRAND_NAME, "Brand " + (i + 1));
+            brandValues.put(COLUMN_BRAND_DESCRIPTION, "Description " + (i + 1));
+            long brandRowId = db.insert(BRAND_TABLE, null, brandValues);
+        }
+
+        // Dummy data for CategoryModel
+        for (int i = 0; i < 5; i++) {
+            ContentValues categoryValues = new ContentValues();
+            categoryValues.put(COLUMN_CATEGORY_NAME, "Category " + (i + 1));
+            categoryValues.put(COLUMN_CATEGORY_DESCRIPTION, "Description " + (i + 1));
+            long categoryRowId = db.insert(CATEGORY_TABLE, null, categoryValues);
+        }
+
+
+
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -160,6 +187,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         editor.putString(key, value);
         editor.apply();
     }
+
+    //////////////////////////                USER               ////////////////////////////
     public boolean userRegister(UserModel userModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -337,6 +366,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public void Logout(){
 
     }
+    //////////////////////////                CUSTOMER               ////////////////////////////
     public List<CustomerModel> getCustomer(String search, int filter,int customerID) {
         List<CustomerModel> returnList = new ArrayList<>();
         String queryString;
@@ -408,34 +438,318 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         long insert = db.insert(CUSTOMER_TABLE, null, cv);
         if (insert == -1) {
+            db.close();
             return false;
-        } else
+        } else {
+            db.close();
             return true;
+        }
     }
-
-
-    /*
-    public CustomerModel getCustomer(int ID){
-        String queryString = "SELECT * FROM " + CUSTOMER_TABLE + " WHERE ID = ?";
+    //////////////////////////                CATEGORY               ////////////////////////////
+    public List<CategoryModel> getCategory(String search, int filter, int categoryID) {
+        List<CategoryModel> returnList = new ArrayList<>();
+        String queryString;
+        if (search != null)
+            queryString = "SELECT * FROM " + CATEGORY_TABLE + " WHERE " + COLUMN_CATEGORY_NAME + " LIKE '%" + search + "%'";
+        else if (categoryID != -1)
+            queryString = "SELECT * FROM " + CATEGORY_TABLE + " WHERE " + COLUMN_CATEGORY_ID + " = " + categoryID;
+        else
+            queryString = "SELECT * FROM " + CATEGORY_TABLE;
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery(queryString, new String[] { String.valueOf(ID) });
+        Cursor cursor = db.rawQuery(queryString, null);
 
-        CustomerModel customer = null;
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int ID        = cursor.getInt(0);
+                String NAME   = cursor.getString(1);
+                String DESCRIPTION   = cursor.getString(2);
 
-        if (cursor.moveToFirst()) {
-            String name = cursor.getString(1);
-            String password = cursor.getString(2);
 
-            customer = new CustomerModel(ID, name, password);
+                CategoryModel newCategory = new CategoryModel(ID,NAME,DESCRIPTION);
+                returnList.add(newCategory);
+            } while (cursor.moveToNext());
+            cursor.close();
         }
+        else {
+            db.close();
+            return null;
+        }
+        db.close();
 
-        cursor.close(); // Close the cursor to release resources
-
-        return customer;
+        return returnList;
     }
-*/
+    public boolean addCategory(CategoryModel categoryModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_CATEGORY_NAME,categoryModel.getCategoryName());
+        cv.put(COLUMN_CATEGORY_DESCRIPTION,categoryModel.getCategoryDescription());
+
+        long insert = db.insert(CATEGORY_TABLE, null, cv);
+        if (insert == -1) {
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+    }
+
+    public boolean updateCategory(int ID, String newName, String description) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_CATEGORY_NAME, newName);
+        values.put(COLUMN_CATEGORY_DESCRIPTION, description);
+
+
+        String whereClause = COLUMN_CATEGORY_ID + " = " + ID;
+
+        int rowsUpdated = db.update(CATEGORY_TABLE, values, whereClause, null);
+
+        db.close();
+
+//        String bread = String.valueOf(rowsUpdated);
+//        Toast.makeText(context, bread, Toast.LENGTH_SHORT).show();
+
+        return rowsUpdated > 0;
+    }
+
+    //////////////////////////                BRAND               ////////////////////////////
+
+
+    public boolean addBrand(BrandModel brandModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_BRAND_NAME,brandModel.getBrandName());
+        cv.put(COLUMN_BRAND_DESCRIPTION,brandModel.getBrandDescription());
+
+        long insert = db.insert(BRAND_TABLE, null, cv);
+        if (insert == -1) {
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+    }
+    public List<BrandModel> getBrand(String search, int filter, int brandID) {
+        List<BrandModel> returnList = new ArrayList<>();
+        String queryString;
+        if (search != null)
+            queryString = "SELECT * FROM " + BRAND_TABLE + " WHERE " + COLUMN_BRAND_NAME + " LIKE '%" + search + "%'";
+        else if (brandID != -1)
+            queryString = "SELECT * FROM " + BRAND_TABLE + " WHERE " + COLUMN_BRAND_ID + " = " + brandID;
+        else
+            queryString = "SELECT * FROM " + BRAND_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int ID        = cursor.getInt(0);
+                String NAME   = cursor.getString(1);
+                String DESCRIPTION   = cursor.getString(2);
+
+                BrandModel newBrand = new BrandModel(ID,NAME,DESCRIPTION);
+                returnList.add(newBrand);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        else {
+            db.close();
+            return null;
+        }
+        db.close();
+
+        return returnList;
+    }
+    public boolean updateBrand(int ID, String newName, String description) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_BRAND_NAME, newName);
+        values.put(COLUMN_BRAND_DESCRIPTION, description);
+
+
+        String whereClause = COLUMN_BRAND_ID + " = " + ID;
+
+        int rowsUpdated = db.update(BRAND_TABLE, values, whereClause, null);
+
+        db.close();
+
+//        String bread = String.valueOf(rowsUpdated);
+//        Toast.makeText(context, bread, Toast.LENGTH_SHORT).show();
+
+        return rowsUpdated > 0;
+    }
+//////////////////////////////////     SPECIFICATION     ////////////////////////////////////
+public List<SpecificationModel> getSpecification(int filter, int specID) {
+    List<SpecificationModel> returnList = new ArrayList<>();
+    String queryString;
+    if (specID != -1)
+        queryString = "SELECT * FROM " + SPECIFICATION_TABLE + " WHERE " + COLUMN_SPECIFICATION_ID + " = " + specID;
+    else
+        queryString = "SELECT * FROM " + SPECIFICATION_TABLE;
+
+    SQLiteDatabase db = this.getReadableDatabase();
+
+    Cursor cursor = db.rawQuery(queryString, null);
+
+    if (cursor != null && cursor.moveToFirst()) {
+        do {
+            int ID        = cursor.getInt(0);
+            String OS   = cursor.getString(1);
+            String Chip   = cursor.getString(2);
+            String RAM   = cursor.getString(3);
+            String ROM   = cursor.getString(4);
+            String Battery = cursor.getString(5);
+            String Screen   = cursor.getString(6);
+            String Size   = cursor.getString(7);
+
+
+
+            SpecificationModel newSpec = new SpecificationModel(ID,OS,Chip,RAM,ROM,Battery,Screen,Size);
+            returnList.add(newSpec);
+        } while (cursor.moveToNext());
+        cursor.close();
+    }
+    else {
+        db.close();
+        return null;
+    }
+    db.close();
+
+    return returnList;
+}
+    public boolean addSpecification(SpecificationModel specificationModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_OS,specificationModel.getOS());
+        cv.put(COLUMN_CHIP,specificationModel.getChip());
+        cv.put(COLUMN_RAM,specificationModel.getRAM());
+        cv.put(COLUMN_ROM,specificationModel.getROM());
+        cv.put(COLUMN_BATTERY,specificationModel.getBattery());
+        cv.put(COLUMN_SCREEN,specificationModel.getScreen());
+        cv.put(COLUMN_SIZE,specificationModel.getSize());
+
+        long insert = db.insert(SPECIFICATION_TABLE, null, cv);
+        if (insert == -1) {
+            db.close();
+            return false;
+        } else
+            db.close();
+        return true;
+    }
+
+    public boolean updateSpecification(int ID, String os, String chip, String ram, String rom, String battery, String screen, String size) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_OS, os);
+        values.put(COLUMN_CHIP, chip);
+        values.put(COLUMN_RAM, ram);
+        values.put(COLUMN_ROM, rom);
+        values.put(COLUMN_BATTERY, battery);
+        values.put(COLUMN_SCREEN, screen);
+        values.put(COLUMN_SIZE, size);
+
+        String whereClause = COLUMN_SPECIFICATION_ID + " = ?";
+        String[] whereArgs = {String.valueOf(ID)};
+
+        int rowsUpdated = db.update(SPECIFICATION_TABLE, values, whereClause, whereArgs);
+
+        db.close();
+
+        return rowsUpdated > 0;
+    }
+
+//////////////////////////////////     PHONE     ////////////////////////////////////////////
+public List<PhoneModel> getPhones(String search ,int filter, int phoneID) {
+    List<PhoneModel> returnList = new ArrayList<>();
+    String queryString;
+    if (search != null)
+        queryString = "SELECT * FROM " + BRAND_TABLE + " WHERE " + COLUMN_BRAND_NAME + " LIKE '%" + search + "%'";
+    else if (phoneID != -1)
+        queryString = "SELECT * FROM " + PHONE_TABLE + " WHERE " + COLUMN_PHONE_CATEGORY_ID + " = " + phoneID;
+    else
+        queryString = "SELECT * FROM " + PHONE_TABLE;
+
+    SQLiteDatabase db = this.getReadableDatabase();
+
+    Cursor cursor = db.rawQuery(queryString, null);
+
+    if (cursor != null && cursor.moveToFirst()) {
+        do {
+            int ID = cursor.getInt(0);
+            String name = cursor.getString(1);
+            String description = cursor.getString(2);
+            byte[] image = cursor.getBlob(3);
+            int price = cursor.getInt(4);
+            int discount = cursor.getInt(5);
+            int views = cursor.getInt(6);
+            int bought = cursor.getInt(7);
+            int categoryID = cursor.getInt(8);
+            int brandID = cursor.getInt(9);
+            int specificationID = cursor.getInt(10);
+
+            PhoneModel newPhone = new PhoneModel(ID, name, description, image, price, discount,views, bought, categoryID, brandID, specificationID);
+            returnList.add(newPhone);
+        } while (cursor.moveToNext());
+        cursor.close();
+    } else {
+        if (cursor != null) cursor.close();
+        db.close();
+        return null;
+    }
+    db.close();
+    return returnList;
+}
+    public boolean addPhone(PhoneModel phoneModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_PHONE_NAME, phoneModel.getPhoneName());
+        cv.put(COLUMN_PHONE_DESCRIPTION, phoneModel.getPhoneDescription());
+        cv.put(COLUMN_PHONE_IMAGE, phoneModel.getPhoneImage());
+        cv.put(COLUMN_PRICE, phoneModel.getPrice());
+        cv.put(COLUMN_DISCOUNT, phoneModel.getDiscount());
+        cv.put(COLUMN_VIEWS, phoneModel.getViews());
+        cv.put(COLUMN_BOUGHT, phoneModel.getBought());
+        cv.put(COLUMN_PHONE_CATEGORY_ID, phoneModel.getCategoryID());
+        cv.put(COLUMN_PHONE_BRAND_ID, phoneModel.getBrandID());
+        cv.put(COLUMN_PHONE_SPECIFICATION_ID, phoneModel.getSpecificationID());
+
+        long insert = db.insert(PHONE_TABLE, null, cv);
+        db.close();
+
+        return insert != -1;
+    }
+
+    public boolean updatePhone(int ID, String name, String description,int price,int discount) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PHONE_NAME, name);
+        values.put(COLUMN_PHONE_DESCRIPTION, description);
+        values.put(COLUMN_PRICE,price);
+        values.put(COLUMN_DISCOUNT,discount);
+
+
+        String whereClause = COLUMN_PHONE_ID + " = ?";
+        String[] whereArgs = {String.valueOf(ID)};
+
+        int rowsUpdated = db.update(PHONE_TABLE, values, whereClause, whereArgs);
+        db.close();
+
+        return rowsUpdated > 0;
+    }
 
 
 
@@ -452,5 +766,47 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
     public ArrayList<String> getNewCustomerColumns() {
         return new ArrayList<>(Arrays.asList(COLUMN_CUSTOMER_ID, COLUMN_CUSTOMER_NAME, COLUMN_NUMBER,COLUMN_AVATAR,COLUMN_BIRTH_DATE,COLUMN_ADDRESS));
+    }
+
+    public ArrayList<String> getCategoryColumns(){
+        return new ArrayList<>(Arrays.asList(COLUMN_CATEGORY_ID,COLUMN_CATEGORY_NAME,COLUMN_CATEGORY_DESCRIPTION));
+    }
+    public ArrayList<String> getNewCategoryColumns(){
+        return new ArrayList<>(Arrays.asList(COLUMN_CATEGORY_NAME,COLUMN_CATEGORY_DESCRIPTION));
+    }
+
+    public ArrayList<String> getBrandColumns(){
+        return new ArrayList<>(Arrays.asList(COLUMN_BRAND_ID,COLUMN_BRAND_NAME,COLUMN_BRAND_DESCRIPTION));
+    }
+    public ArrayList<String> getNewBrandColumns(){
+        return new ArrayList<>(Arrays.asList(COLUMN_BRAND_NAME,COLUMN_BRAND_DESCRIPTION));
+    }
+
+    public ArrayList<String> getPhoneColumns() {
+        return new ArrayList<>(Arrays.asList(COLUMN_PHONE_ID,
+                COLUMN_PHONE_NAME,
+                COLUMN_PHONE_DESCRIPTION,
+                COLUMN_PRICE,
+                COLUMN_DISCOUNT,
+                COLUMN_OS,
+                COLUMN_CHIP,
+                COLUMN_RAM,
+                COLUMN_ROM,
+                COLUMN_BATTERY,
+                COLUMN_SCREEN,
+                COLUMN_SIZE));
+    }
+    public ArrayList<String> getNewPhoneColumns(){
+        return new ArrayList<>(Arrays.asList(COLUMN_PHONE_NAME,
+                COLUMN_PHONE_DESCRIPTION,
+                COLUMN_PRICE,
+                COLUMN_DISCOUNT,
+                COLUMN_OS,
+                COLUMN_CHIP,
+                COLUMN_RAM,
+                COLUMN_ROM,
+                COLUMN_BATTERY,
+                COLUMN_SCREEN,
+                COLUMN_SIZE));
     }
 }

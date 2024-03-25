@@ -1,4 +1,4 @@
-package com.example.doan.admin.recycler;
+package com.example.doan.admin.Brand;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,46 +14,43 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doan.R;
-import com.example.doan.admin.EditCustomerActivity;
-import com.example.doan.admin.EditUserActivity;
-import com.example.doan.admin.model.CustomerModel;
+import com.example.doan.admin.model.BrandModel;
 
 import java.util.List;
 
-public class CustomerRecycler extends RecyclerView.Adapter<CustomerRecycler.MyViewHolder> {
+public class BrandRecycler extends RecyclerView.Adapter<BrandRecycler.MyViewHolder> {
 
     Context context;
-    List<CustomerModel> customerList;
-    public CustomerRecycler(Context context, List<CustomerModel> customerList){
+    List<BrandModel> brandList;
+    public BrandRecycler(Context context, List<BrandModel> brandList){
         this.context = context;
-        this.customerList = customerList;
+        this.brandList = brandList;
     }
-    public CustomerRecycler(){
+    public BrandRecycler(){
     }
 
     @NonNull
     @Override
-    public CustomerRecycler.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BrandRecycler.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.admin_recycler_view_row,parent,false);
-        return new CustomerRecycler.MyViewHolder(view);
+        return new BrandRecycler.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomerRecycler.MyViewHolder holder, int position) {
-
-        holder.txtID.setText(String.valueOf(customerList.get(position).getCustomerID()));
-        holder.txtName.setText(customerList.get(position).getCustomerName());
-        holder.txtExtra.setText(customerList.get(position).getAddress());
-        holder.txtExtra2.setText(customerList.get(position).getNumber());
+    public void onBindViewHolder(@NonNull BrandRecycler.MyViewHolder holder, int position) {
+        holder.txtID.setText(String.valueOf(brandList.get(position).getBrandID()));
+        holder.txtName.setText(brandList.get(position).getBrandName());
+        holder.txtExtra.setText(brandList.get(position).getBrandDescription());
+        holder.txtExtra2.setText(null);
 
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int clickedPosition = holder.getAdapterPosition();
                 if (clickedPosition != RecyclerView.NO_POSITION) {
-                    Intent intent = new Intent(context, EditCustomerActivity.class);
-                    intent.putExtra("customerID", customerList.get(clickedPosition).getCustomerID());
+                    Intent intent = new Intent(context, EditBrandActivity.class);
+                    intent.putExtra("brandID", brandList.get(clickedPosition).getBrandID());
                     context.startActivity(intent);
                 }
             }
@@ -63,7 +60,7 @@ public class CustomerRecycler extends RecyclerView.Adapter<CustomerRecycler.MyVi
 
     @Override
     public int getItemCount() {
-        return customerList.size();
+        return brandList.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

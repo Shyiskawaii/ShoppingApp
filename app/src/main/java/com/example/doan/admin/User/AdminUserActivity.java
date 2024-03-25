@@ -1,4 +1,4 @@
-package com.example.doan.admin;
+package com.example.doan.admin.User;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.doan.R;
+import com.example.doan.admin.DatabaseHelper;
 import com.example.doan.admin.model.UserModel;
-import com.example.doan.admin.recycler.UserRecycler;
 
 import java.util.List;
 
