@@ -1,6 +1,7 @@
 package com.example.doan;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,21 +11,47 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuView;
+import androidx.fragment.app.Fragment;
 
+import com.example.doan.home.CartFragment;
+import com.example.doan.home.CategoryFragment;
+import com.example.doan.home.HomeFragment;
+import com.example.doan.home.SearchFragment;
+import com.example.doan.home.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     ImageButton IBSearch;
+
     private BottomNavigationView bottomNav;
 
     private SharedPreferences sharedPreferences;
+
+    String KEY_SECTION = "section",
+            KEY_USERNAME= "username";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences sectionPrefs = getSharedPreferences(KEY_SECTION, Context.MODE_PRIVATE);
+        String username = sectionPrefs.getString(KEY_USERNAME, null);
+        if (username == null) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+
         bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnItemSelectedListener(navListener);
+        Fragment selectedFragment = new HomeFragment();
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, selectedFragment)
+                .commit();
+
+
 
     }
 
@@ -39,29 +66,28 @@ public class MainActivity extends AppCompatActivity {
             new BottomNavigationView.OnItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                    Fragment selectedFragment = null;
-//
-//                    switch (item.getItemId()) {
-//                        case R.id.nav_home:
-//                            selectedFragment = new HomeFragment();
-//                            break;
-//                        case R.id.nav_category:
-//                            selectedFragment = new CategoryFragment();
-//                            break;
-//                        case R.id.nav_search:
-//                            selectedFragment = new SearchFragment();
-//                            break;
-//                        case R.id.nav_cart:
-//                            selectedFragment = new CartFragment();
-//                            break;
-//                        case R.id.nav_user:
-//                            selectedFragment = new UserFragment();
-//                            break;
-//                    }
-//
-//                    getSupportFragmentManager().beginTransaction()
-//                            .replace(R.id.fragment_container, selectedFragment)
-//                            .commit();
+                    Fragment selectedFragment = null;
+
+                    int id = item.getItemId();
+
+                    if (id == R.id.nav_home) {
+                        selectedFragment = new HomeFragment();
+                    } else if (id == R.id.nav_category) {
+                        selectedFragment = new CategoryFragment();
+                    } else if (id == R.id.nav_search) {
+                        selectedFragment = new SearchFragment();
+                    } else if (id == R.id.nav_cart) {
+                        selectedFragment = new CartFragment();
+                    } else if (id == R.id.nav_user) {
+                        selectedFragment = new UserFragment();
+                    }else {
+                           selectedFragment = new HomeFragment();
+                    }
+
+
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragmentContainer, selectedFragment)
+                            .commit();
 
                     return true;
                 }

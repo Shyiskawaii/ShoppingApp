@@ -29,6 +29,8 @@ public class PhoneModel {
         BrandID = brandID;
         SpecificationID = specificationID;
     }
+    public PhoneModel(){
+    }
 
     public int getPhoneID() {
         return PhoneID;

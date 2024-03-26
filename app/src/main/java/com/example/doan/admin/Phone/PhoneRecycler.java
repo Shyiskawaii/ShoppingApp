@@ -18,6 +18,7 @@ import com.example.doan.R;
 import com.example.doan.admin.Brand.EditBrandActivity;
 import com.example.doan.admin.model.BrandModel;
 import com.example.doan.admin.model.PhoneModel;
+import com.example.doan.home.DetailsActivity;
 
 import java.util.List;
 
@@ -55,7 +56,19 @@ public class PhoneRecycler extends RecyclerView.Adapter<PhoneRecycler.MyViewHold
             public void onClick(View v) {
                 int clickedPosition = holder.getAdapterPosition();
                 if (clickedPosition != RecyclerView.NO_POSITION) {
-                    Intent intent = new Intent(context, EditPhoneActivity   .class);
+                    Intent intent = new Intent(context, EditPhoneActivity.class);
+                    intent.putExtra("phoneID", phoneList.get(clickedPosition).getPhoneID());
+                    context.startActivity(intent);
+                }
+            }
+        });
+
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int clickedPosition = holder.getAdapterPosition();
+                if (clickedPosition != RecyclerView.NO_POSITION) {
+                    Intent intent = new Intent(context, DetailsActivity.class);
                     intent.putExtra("phoneID", phoneList.get(clickedPosition).getPhoneID());
                     context.startActivity(intent);
                 }
@@ -72,7 +85,7 @@ public class PhoneRecycler extends RecyclerView.Adapter<PhoneRecycler.MyViewHold
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imgCard;
         TextView txtID,txtName,txtExtra,txtExtra2;
-        ImageButton btnEdit;
+        ImageButton btnEdit,btnDelete;
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
@@ -83,6 +96,7 @@ public class PhoneRecycler extends RecyclerView.Adapter<PhoneRecycler.MyViewHold
             btnEdit = itemView.findViewById(R.id.btnEdit);
             imgCard = itemView.findViewById(R.id.imgCard);
             imgCard.setImageTintMode(null);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
         }
     }
 

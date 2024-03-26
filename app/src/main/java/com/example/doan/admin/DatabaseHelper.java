@@ -675,9 +675,9 @@ public List<PhoneModel> getPhones(String search ,int filter, int phoneID) {
     List<PhoneModel> returnList = new ArrayList<>();
     String queryString;
     if (search != null)
-        queryString = "SELECT * FROM " + BRAND_TABLE + " WHERE " + COLUMN_BRAND_NAME + " LIKE '%" + search + "%'";
+        queryString = "SELECT * FROM " + PHONE_TABLE + " WHERE " + COLUMN_PHONE_NAME + " LIKE '%" + search + "%'";
     else if (phoneID != -1)
-        queryString = "SELECT * FROM " + PHONE_TABLE + " WHERE " + COLUMN_PHONE_CATEGORY_ID + " = " + phoneID;
+        queryString = "SELECT * FROM " + PHONE_TABLE + " WHERE " + COLUMN_PHONE_ID + " = " + phoneID;
     else
         queryString = "SELECT * FROM " + PHONE_TABLE;
 

@@ -1,5 +1,6 @@
 package com.example.doan.admin.Brand;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -27,13 +28,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddBrandActivity extends AppCompatActivity {
-    DatabaseHelper databaseHelper = new DatabaseHelper(this);
+    DatabaseHelper databaseHelper;
+    Context context;
     LinearLayout linearlayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_edit);
+        databaseHelper = new DatabaseHelper(context);
 
         linearlayout = findViewById(R.id.edit_layout);
 

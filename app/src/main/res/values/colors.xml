@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="my_primary">#CDDC39</color>
-    <color name="my_secondary">#AFB42B</color>
+    <color name="black">#000000</color>
+    <color name="white">#F3F8FF</color>
+    <color name="my_primary">#53118F</color>
+    <color name="my_secondary">#49108B</color>
+    <color name="my_third">#E26EE5</color>
     <color name="xám">#8D8888</color>
 </resources>
